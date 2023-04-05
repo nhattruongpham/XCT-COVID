@@ -16,7 +16,6 @@ from sklearn.metrics import confusion_matrix, roc_auc_score, roc_curve
 from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import accuracy_score,classification_report,confusion_matrix
-import splitfolders
 
 from datetime import datetime
 import warnings
@@ -52,9 +51,8 @@ currentYear = datetime.now().year
 #                                                             memory_limit=24576)])
 
 NUM_CLASSES = 1
-TRAIN_DATA_PATH = 'data/CT-COVID'
-# splitfolders.ratio(TRAIN_DATA_PATH, output='COVID-19-CT/', seed=1234, ratio=(0.85, 0.15), group_prefix=None)
-IND_TEST_DATA_PATH = 'data/CT-COVID'
+TRAIN_DATA_PATH = 'data/COVIDx-CT-3/train'
+VAL_DATA_PATH = 'data/COVIDx-CT-3/val'
 
 # Preparing dataset
 X_train = []
@@ -72,43 +70,43 @@ train_X = np.array(X_train)
 
 train_X = train_X / 255.0
 
-X_ind_test = []
-for folder in os.listdir(IND_TEST_DATA_PATH):
-    sub_path = IND_TEST_DATA_PATH + "/" + folder
+X_val = []
+for folder in os.listdir(VAL_DATA_PATH):
+    sub_path = VAL_DATA_PATH + "/" + folder
     for img in os.listdir(sub_path):
         img_path = sub_path + "/" + img
         img_arr = cv2.imread(img_path)
         resized_img = cv2.resize(img_arr, (224, 224))
-        X_ind_test.append(resized_img)
+        X_val.append(resized_img)
 
-print(np.array(X_ind_test).shape)
+print(np.array(X_val).shape)
   
-test_ind_X = np.array(X_ind_test)
+val_X = np.array(X_val)
 
-test_ind_X = test_ind_X / 255.0
+val_X = val_X / 255.0
 
 train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255)
-ind_test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255)
+val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255)
 
 training_set = train_datagen.flow_from_directory(TRAIN_DATA_PATH,
                                                  target_size=(224, 224),
                                                  class_mode='binary')
 
-ind_test_set = ind_test_datagen.flow_from_directory(IND_TEST_DATA_PATH,
+validation_set = val_datagen.flow_from_directory(VAL_DATA_PATH,
                                                     target_size=(224, 224),
                                                     class_mode='binary')                                             
 
 train_y = training_set.classes
-test_y = ind_test_set.classes
+val_y = validation_set.classes
 
 print(training_set.class_indices)
 
 print(train_y.shape)
 
 
-print(ind_test_set.class_indices)
+print(validation_set.class_indices)
 
-print(test_y.shape)
+print(val_y.shape)
 
 
 def precision(y_true, y_pred):
@@ -185,7 +183,7 @@ acc_trn_scores = []
 pcs_trn_scores = []
 roc_auc_trn_scores = []
 
-kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
+kfold = StratifiedKFold(n_splits=3, shuffle=True, random_state=42)
 fold_number = 0
 for train_idx, test_idx in kfold.split(train_X, train_y):
     fold_number = fold_number + 1
@@ -236,10 +234,10 @@ callback2 = tf.keras.callbacks.ReduceLROnPlateau(
                                patience = 5, monitor = 'val_accuracy', 
                                mode = 'max', factor = 0.1
                            )
-train_X1, test_X1, train_y1, test_y1 = train_X, test_ind_X, train_y, test_y
+train_X1, test_X1, train_y1, test_y1 = train_X, val_X, train_y, val_y
 model.fit(train_X1, train_y1, epochs=200, batch_size=32, validation_data=(test_X1, test_y1), callbacks=[callback1, callback2])
 
-model.save('CT_Scan_pretrained_covid_ct.h5')
+model.save('trained_models/COVIDx-CT-3-baseline-k3.h5')
 
 model.evaluate(test_X1, test_y1)
 

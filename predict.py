@@ -16,7 +16,6 @@ from sklearn.metrics import confusion_matrix, roc_auc_score, roc_curve
 from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import accuracy_score,classification_report,confusion_matrix
-import splitfolders
 
 from datetime import datetime
 import warnings
@@ -52,7 +51,7 @@ currentYear = datetime.now().year
 #                                                             memory_limit=24576)])
 
 NUM_CLASSES = 1
-IND_TEST_DATA_PATH = 'data/COVID-19-CT/test'
+IND_TEST_DATA_PATH = 'data/SARS-COV-2-Ct-Scan-Kaggle/test'
 
 # Preparing dataset
 X_ind_test = []
@@ -151,7 +150,7 @@ def EffNetV2(num_classes):
     model = keras.Model(inputs, outputs)
     return model
 
-model = tf.keras.models.load_model('CT_Scan_pretrained_kaggle.h5', custom_objects={'precision': precision,'recall':recall,'f1':f1,'TP':TP,'FN':FN,'TN':TN,'FP':FP})
+model = tf.keras.models.load_model('trained_models/SARS-COV-2-Ct-Scan-Kaggle-baseline.h5', custom_objects={'precision': precision,'recall':recall,'f1':f1,'TP':TP,'FN':FN,'TN':TN,'FP':FP})
 
 y_pred = (model.predict(test_ind_X)>0.5).astype(np.float32)
 
@@ -162,7 +161,7 @@ print(classification_report(test_y, y_pred))
 
 print(confusion_matrix(test_y, y_pred))
 
-tn, fp, fn, tp = confusion_matrix(test_y1, y_pred).ravel()
+tn, fp, fn, tp = confusion_matrix(test_y, y_pred).ravel()
 mcc = float(tp * tn - fp * fn) / (math.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)) + 1e-06)
 print('MCC: {0:.4f}'.format(mcc))
 sn = float(tp) / (tp + fn + 1e-06)
@@ -173,5 +172,5 @@ acc = float(tp + tn) / (tn + fp + fn + tp + 1e-06)
 print('ACC: {0:.4f}'.format(acc))
 pcs = float(tp) / (tp + fp + 1e-06)
 print('Precision: {0:.4f}'.format(pcs))
-roc_auc = roc_auc_score(test_y1, y_pred)
+roc_auc = roc_auc_score(test_y, y_pred)
 print('AUC: {0:.4f}'.format(roc_auc))
