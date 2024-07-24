@@ -1,0 +1,1 @@
+# Please put COVID and non-COVID folders of the independent SARS-CoV-2-CT dataset into this folder. 

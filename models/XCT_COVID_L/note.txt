@@ -1,0 +1,1 @@
+# Please put all *.pth files of XCT-COVID-L model into this folder.

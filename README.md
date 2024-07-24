@@ -60,9 +60,9 @@ source xct_covid/bin/activate
 
 ## Downloading final models
 * Please download the final models via Zenodo at [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.12772023.svg)](https://doi.org/10.5281/zenodo.12772023)
-* For the **XCT_COVID_L** models, please extract and put all *.pt files into the [models/XCT_COVID_L](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_L) folder.
-* For the **XCT_COVID_S1** models, please extract and put all *.pt files into the [models/XCT_COVID_S1](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S1) folder.
-* For the **XCT_COVID_S2** models, please extract and put all *.pt files into the [models/XCT_COVID_S2](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S2) folder.
+* For the **XCT_COVID_L** models, please extract and put all *.pth files into the [models/XCT_COVID_L](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_L) folder.
+* For the **XCT_COVID_S1** models, please extract and put all *.pth files into the [models/XCT_COVID_S1](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S1) folder.
+* For the **XCT_COVID_S2** models, please extract and put all *.pth files into the [models/XCT_COVID_S2](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S2) folder.
 
 ## Running prediction
 ### Usage
