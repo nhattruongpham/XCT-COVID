@@ -9,7 +9,7 @@ import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import torchvision.models as models
 from utils import _get_image_labels
-from dataset import SmokeDataset
+from dataset import COVIDCT_Dataset
 from Configs import Config
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 import warnings
@@ -55,7 +55,7 @@ def run():
 
     test_images, test_labels = _get_image_labels(cfg.dataset_dir)
 
-    test_dataset = SmokeDataset(
+    test_dataset = COVIDCT_Dataset(
         test_images, test_labels, resize=cfg.resize, transform=cfg.test_transform)
 
 

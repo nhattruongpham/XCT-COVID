@@ -3,7 +3,7 @@ import cv2
 import torch
 from torch.utils.data import Dataset
 
-class SmokeDataset(Dataset):
+class COVIDCT_Dataset(Dataset):
     def __init__(self, images, labels, resize = False, transform=None, return_image_path = False):
         self._images = images
         self._labels = labels
