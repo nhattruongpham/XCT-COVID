@@ -100,7 +100,7 @@ _**If you use this code or any part of it, as well as the refined datasets, plea
 ```
 @article{pham2024leveraging,
   title={Leveraging deep transfer learning and explainable AI for accurate COVID-19 diagnosis: Insights from a multi-national chest CT scan study},
-  author={Pham, Nhat Truong and Shah, Masaud and Woo, Hyun Goo and Manavalan, Balachandran},
+  author={Pham, Nhat Truong and Ko, Jinsol and Shah, Masaud and Woo, Hyun Goo and Manavalan, Balachandran},
   journal={},
   volume={},
   number={},
