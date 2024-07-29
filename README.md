@@ -41,7 +41,7 @@ cd XCT-COVID
 ```
 
 ## Creating virtual environment
-* Please download the virtual environment (xct_covid.tar.gz) via Zenodo at [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.12772023.svg)](https://doi.org/10.5281/zenodo.12772023)
+* Please download the virtual environment (_**xct_covid.tar.gz**_) via Zenodo at [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.12772023.svg)](https://doi.org/10.5281/zenodo.12772023)
 * Please extract it into the [xct_covid](https://github.com/nhattruongpham/XCT-COVID/tree/main/xct_covid) folder as below:
 ```
 tar -xzf xct_covid.tar.gz -C xct_covid 
@@ -52,17 +52,17 @@ source xct_covid/bin/activate
 ```
 
 # Getting started
-## Downloading refined datasets
-* Please download the refined datasets via Zenodo at [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.12772023.svg)](https://doi.org/10.5281/zenodo.12772023)
-* For the refined **COVIDx_CT_3** independent dataset, please extract and put **COVID** and **non-COVID** folders into the [examples/COVIDx_CT_3](https://github.com/nhattruongpham/XCT-COVID/tree/main/examples/COVIDx_CT_3) folder.
-* For the refined **COVID_CT** independent dataset, please extract and put **COVID** and **non-COVID** folders into the [examples/COVID_CT](https://github.com/nhattruongpham/XCT-COVID/tree/main/examples/COVID_CT) folder.
-* For the refined **SARS_CoV_2_CT** independent dataset, please extract and put **COVID** and **non-COVID** folders into the [examples/SARS_CoV_2_CT](https://github.com/nhattruongpham/XCT-COVID/tree/main/examples/SARS_CoV_2_CT) folder.
+## Downloading all refined independent datasets
+* Please download all refined independent datasets via Zenodo at [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.12772023.svg)](https://doi.org/10.5281/zenodo.12772023)
+* For the refined **COVIDx-CT-3** independent dataset, please extract _**COVIDx_CT_3.zip**_ file downloaded via Zenodo and put **COVID** and **non-COVID** folders into the [examples/COVIDx_CT_3](https://github.com/nhattruongpham/XCT-COVID/tree/main/examples/COVIDx_CT_3) folder.
+* For the refined **COVID-CT** independent dataset, please extract _**COVID_CT.zip**_ file downloaded via Zenodo and put **COVID** and **non-COVID** folders into the [examples/COVID_CT](https://github.com/nhattruongpham/XCT-COVID/tree/main/examples/COVID_CT) folder.
+* For the refined **SARS-CoV-2-CT** independent dataset, please extract _**SARS_CoV_2_CT.zip**_ file downloaded via Zenodo and put **COVID** and **non-COVID** folders into the [examples/SARS_CoV_2_CT](https://github.com/nhattruongpham/XCT-COVID/tree/main/examples/SARS_CoV_2_CT) folder.
 
-## Downloading final models
-* Please download the final models via Zenodo at [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.12772023.svg)](https://doi.org/10.5281/zenodo.12772023)
-* For the **XCT_COVID_L** models, please extract and put all *.pth files into the [models/XCT_COVID_L](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_L) folder.
-* For the **XCT_COVID_S1** models, please extract and put all *.pth files into the [models/XCT_COVID_S1](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S1) folder.
-* For the **XCT_COVID_S2** models, please extract and put all *.pth files into the [models/XCT_COVID_S2](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S2) folder.
+## Downloading all final models
+* Please download all final models via Zenodo at [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.12772023.svg)](https://doi.org/10.5281/zenodo.12772023)
+* For the **XCT-COVID-L** models, please extract _**XCT_COVID_L.zip**_ file downloaded via Zenodo and put all *.pth files into the [models/XCT_COVID_L](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_L) folder.
+* For the **XCT-COVID-S1** models, please extract _**XCT_COVID_S1.zip**_ file downloaded via Zenodo and put all *.pth files into the [models/XCT_COVID_S1](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S1) folder.
+* For the **XCT-COVID-S2** models, please extract _**XCT_COVID_S2.zip**_ file downloaded via Zenodo and put all *.pth files into the [models/XCT_COVID_S2](https://github.com/nhattruongpham/XCT-COVID/tree/main/models/XCT_COVID_S2) folder.
 
 ## Running prediction
 ### Usage
@@ -74,20 +74,38 @@ CUDA_VISIBLE_DEVICES=<GPU_NUMBER> python predictor.py
 CUDA_VISIBLE_DEVICES=0 python predictor.py
 ```
 ### Note
-* Please modify **dataset_dir**, **model_name**, and **model_path** in the [Configs.py](https://github.com/nhattruongpham/XCT-COVID/tree/main/Configs.py) file for the target model and its corresponding dataset!!!
+* Please modify _**dataset_dir**_, _**model_name**_, and _**model_path**_ in the [Configs.py](https://github.com/nhattruongpham/XCT-COVID/tree/main/Configs.py) file for the target model and its corresponding dataset.
+* For the **COVIDx-CT-3** independent dataset:
+```
+self.dataset_dir = r'examples/COVIDx_CT_3/'
+self.model_name = 'vgg16'
+self.model_path = r'models/XCT_COVID_L/'
+```
+* For the **COVID-CT** independent dataset:
+```
+self.dataset_dir = r'examples/COVID_CT/'
+self.model_name = 'mobilenet_v2'
+self.model_path = r'models/XCT_COVID_S1/'
+```
+* For the **SARS-CoV-2-CT** independent dataset:
+```
+self.dataset_dir = r'examples/SARS_CoV_2_CT/'
+self.model_name = 'mobilenet_v2'
+self.model_path = r'models/XCT_COVID_S2/'
+```
 
 # Citation
-If you use this code or part of it as well as the refined datasets, please cite the following papers:
+_**If you use this code or any part of it, as well as the refined datasets, please cite the following papers:**_
 ## Main
 ```
-@article{,
-  title={},
-  author={},
+@article{pham2024leveraging,
+  title={Leveraging deep transfer learning and explainable AI for accurate COVID-19 diagnosis: Insights from a multi-national chest CT scan study},
+  author={Pham, Nhat Truong and Shah, Masaud and Woo, Hyun Goo and Manavalan, Balachandran},
   journal={},
   volume={},
   number={},
   pages={},
-  year={},
+  year={2024},
   publisher={}
 }
 ```
@@ -129,7 +147,10 @@ https://doi.org/10.1038/s41551-020-00633-5"><img src="https://zenodo.org/badge/d
 [18] Morozov, S.P., Andreychenko, A.E., Blokhin, I.A., Gelezhe, P.B., Gonchar, A.P., Nikolaev, A.E., Pavlov, N.A., Chernina, V.Y., Gombolevskiy, V.A., 2020. MosMedData: data set of 1110 chest CT scans performed during the COVID-19 epidemic. <i>Digital Diagnostics</i> 1, 49-59. <a href="
 https://doi.org/10.17816/dd46826"><img src="https://zenodo.org/badge/doi/10.17816/dd46826.svg" alt="DOI"></a> <br>
 [19] Afshar, P., Heidarian, S., Enshaei, N., Naderkhani, F., Rafiee, M.J., Oikonomou, A., Fard, F.B., Samimi, K., Plataniotis, K.N., Mohammadi, A., 2021. COVID-CT-MD, COVID-19 computed tomography scan dataset applicable in machine learning and deep learning. <i>Sci Data</i> 8. <a href="
-https://doi.org/10.1038/s41597-021-00900-3"><img src="https://zenodo.org/badge/doi/10.1038/s41597-021-00900-3.svg" alt="DOI"></a>   
+https://doi.org/10.1038/s41597-021-00900-3"><img src="https://zenodo.org/badge/doi/10.1038/s41597-021-00900-3.svg" alt="DOI"></a> <br>
+[20] Lundberg, S. M., & Lee, S. I. (2017). A unified approach to interpreting model predictions. <i>Advances in neural information processing systems</i>, 30. <br>
+[21] Chattopadhay, A., Sarkar, A., Howlader, P., & Balasubramanian, V. N. (2018, March). Grad-cam++: Generalized gradient-based visual explanations for deep convolutional networks. In <i>2018 IEEE winter conference on applications of computer vision (WACV)</i> (pp. 839-847). IEEE. <a href="
+https://doi.org/10.1109/WACV.2018.00097"><img src="https://zenodo.org/badge/doi/10.1109/WACV.2018.00097.svg" alt="DOI"></a>  
 
 # Acknowledgements
-The authors also would like to thank the Multi-national NIH Consortium for CT AI in COVID-19. The authors acknowledge the National Cancer Institute and the Foundation for the National Institutes of Health, and their critical role in the creation of the free publicly available LIDC/IDRI Database used in this study.
+The authors also would like to thank the Multi-national NIH Consortium for CT AI in COVID-19. The authors acknowledge the National Cancer Institute and the Foundation for the National Institutes of Health, and their critical role in the creation of the free publicly available LIDC/IDRI Database used in this study. This work was supported by the Korea Bio Data Station (K-BDS) with computing resources including technical support.

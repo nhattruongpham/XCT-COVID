@@ -39,9 +39,9 @@ def predict(test_loader, model, cfg):
     tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
     print(confusion_matrix(y_true, y_pred))
     mcc = float(tp*tn - fp*fn) / (math.sqrt((tp+fp) * (tp+fn) * (tn+fp) * (tn+fn)) + 1e-6)
-    sn = float(tp) / (tp+fn +1e-6)
-    sp = float(tn) / (tn+fp +1e-6)
-    acc = float(tp+tn) / (tn+fp+fn+tp +1e-6)
+    sn = float(tp) / (tp+fn + 1e-6)
+    sp = float(tn) / (tn+fp + 1e-6)
+    acc = float(tp+tn) / (tn+fp+fn+tp + 1e-6)
     fpr, tpr, _ = roc_curve(y_true, y_prob, pos_label=1)
     auc_ = auc(fpr, tpr)
     pre = float(tp) / (tp+fp + 1e-6)
@@ -92,8 +92,16 @@ def run():
         auc_test_scores.append(auc_)
         pre_test_scores.append(pre)
         f1_test_scores.append(F1_)
-     
-    print("Independent Testing Scores {}\t{}\t{}\t{}\t{}\t{}\t{}".format(np.round(np.mean(mcc_test_scores), 4), np.round(np.mean(sn_test_scores), 4), np.round(np.mean(sp_test_scores), 4), np.round(np.mean(acc_test_scores), 4), np.round(np.mean(auc_test_scores), 4), np.round(np.mean(pre_test_scores), 4), np.round(np.mean(f1_test_scores), 4)))
+
+    # print("Independent Testing Scores {}\t{}\t{}\t{}\t{}\t{}\t{}".format(np.round(np.mean(mcc_test_scores), 4), np.round(np.mean(sn_test_scores), 4), np.round(np.mean(sp_test_scores), 4), np.round(np.mean(acc_test_scores), 4), np.round(np.mean(auc_test_scores), 4), np.round(np.mean(pre_test_scores), 4), np.round(np.mean(f1_test_scores), 4))) 
+    print("Independent Testing Scores:\n"
+      f"MCC: {np.round(np.mean(mcc_test_scores), 4)}\n"
+      f"ACC: {np.round(np.mean(acc_test_scores), 4)}\n"
+      f"Sn: {np.round(np.mean(sn_test_scores), 4)}\n"
+      f"Sp: {np.round(np.mean(sp_test_scores), 4)}\n"
+      f"PRE: {np.round(np.mean(pre_test_scores), 4)}\n"
+      f"F1-score: {np.round(np.mean(f1_test_scores), 4)}\n"
+      f"AUC: {np.round(np.mean(auc_test_scores), 4)}")
     
 if __name__ == '__main__':
     run()
